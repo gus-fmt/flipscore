@@ -21,8 +21,10 @@
         <div class="players-start">
           <div v-for="(player, i) in partyStore.players" :key="i">
             <p>Joueur {{ i + 1 }}</p>
+            <span>Nom du joueur</span>
             <input type="text" v-model="partyStore.players[i].name" :placeholder="`Nom du joueur ${i + 1}`" />
-            <input type="number" v-model="partyStore.players[i].score" placeholder="Score initial" min="0" max="999999" step="10" />
+            <span>Score initial : {{ partyStore.players[i].score.toLocaleString(fr-FR) }}</span>
+            <input type="number" v-model="partyStore.players[i].score" placeholder="Score initial" min="0" max="999999" step="10" @blur="partyStore.players[i].score = Math.max(1, Math.floor(Number(partyStore.players[i].score)))"/>
             <button class="bg-red" @click="partyStore.removePlayer(i)">Supprimer</button>
           </div>
         </div>
